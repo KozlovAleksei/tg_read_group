@@ -5,9 +5,26 @@ https://my.telegram.org/auth
 Удаление учетной записи или управление приложениями
 Войдите здесь, чтобы управлять своими приложениями с помощью Telegram API, или удалите свою учетную запись. Введите свой номер, и мы вышлем вам код подтверждения через Telegram (не SMS).
 
-API development tools
-App title:tg_read_msg
-Short name:tg_read_msg
+API development tools http://pythonbot.tilda.ws/about_api
+Отключаем блокировщики рекламы и т.п. или чистый браузер
+App title:MyTestAppjkhlsjdfg
+Short name:tesrwhgr (только буквы без _)
 URL:
-Platform:Desktop
-Description:An application for reading the latest message from the telegram channel or group.
+https://github.com/KozlovAleksei/tg_read_group
+Platform:
+Desktop
+Description:
+An application for reading the latest message from the telegram channel or group.
+
+def read_text_from_file(TextFileName):
+    for _ in range(3):
+        try:
+            with open(TextFileName, "r") as file:
+                text = file.read()
+                return text
+        except FileNotFoundError:
+            time.sleep(0.01)
+    return ''
+
+api_id = read_text_from_file('C:\\py386\secret\\001\\api_id.txt')
+api_hash = read_text_from_file('C:\\py386\secret\\001\\api_hash.txt')
