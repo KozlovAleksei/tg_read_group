@@ -1,0 +1,13 @@
+Создание своего клиента Telegram
+https://tlgrm.ru/docs/api/obtaining_api_id
+
+https://my.telegram.org/auth
+Удаление учетной записи или управление приложениями
+Войдите здесь, чтобы управлять своими приложениями с помощью Telegram API, или удалите свою учетную запись. Введите свой номер, и мы вышлем вам код подтверждения через Telegram (не SMS).
+
+API development tools
+App title:tg_read_msg
+Short name:tg_read_msg
+URL:
+Platform:Desktop
+Description:An application for reading the latest message from the telegram channel or group.
