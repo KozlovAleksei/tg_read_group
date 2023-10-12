@@ -18,8 +18,9 @@ api_hash = read_text_from_file('C:\\py386\secret\\001\\api_hash.txt')
 # channel = 'Atusoi'
 # username = '@x5y5z5'
 
-channel_username = 'OlegTrade'
-# channel_username = 'OlegTradeSupport'
+# channel_username = 'OlegTrade'
+channel_username = 'OlegTradeSupport'
+# channel_username = 'Профит Есть. Premium'
 
 # Функция для чтения сообщений и записи в файл
 def read_messages(channel_username):
@@ -37,13 +38,24 @@ def read_messages(channel_username):
 
         if entity is not None:
             messages = client.get_messages(entity, limit=1)  # Читаем 1 последних сообщений
+            print('messages=', messages)
 
+            if messages.total != 0:
+                print('message')
+                # Записываем сообщения в файл
+                with open(f'C:\\{channel_username}.txt', 'w') as file:
+                    for message in messages:
+                        file.write(f'{message.sender_id}: {message.text}\n')
+                        print(message.text)
+                        return
 
-            # Записываем сообщения в файл
-            with open(f'C:\\{channel_username}.txt', 'w') as file:
-                for message in messages:
-                    file.write(f'{message.sender_id}: {message.text}\n')
-                    print(message.text)
+        if entity is not None:
+            print('entity:', entity)
+            messages = client.get_messages(entity, limit=1, votes=True)  # Читаем 1 последних сообщений
+            messages = client.get_entity(entity)
+            print('vote=', messages)
+            return
+
         else:
             print("Сущность не найдена")
 
