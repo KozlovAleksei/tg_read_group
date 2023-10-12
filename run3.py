@@ -1,5 +1,5 @@
 from telethon.sync import TelegramClient
-
+from telethon.tl.functions import messages
 import csv
 
 from telethon.tl.functions.messages import GetDialogsRequest
@@ -21,8 +21,11 @@ api_id = int(read_text_from_file('C:\\py386\secret\\001\\api_id.txt'))
 api_hash = read_text_from_file('C:\\py386\secret\\001\\api_hash.txt')
 phone = read_text_from_file('C:\\py386\secret\\001\\phone.txt')
 
+client = TelegramClient('session_name', api_id, api_hash)
+client.connect()
+
 client = TelegramClient(phone, api_id, api_hash)
-print(client)
+# print(client)
 
 client.start()
 
@@ -39,13 +42,11 @@ result = client(GetDialogsRequest(
             hash = 0
         ))
 chats.extend(result.chats)
-print(chats)
+# print(chats)
 
 for chat in chats:
    try:
        # 'ProfitGateClub' 'Atusoi'
-       # if chat.megagroup == True:
-       # if chat.title == 'Atusoi':
        if chat.title == 'Atusoi':
            groups.append(chat)
            break
@@ -53,12 +54,20 @@ for chat in chats:
        continue
 
 target_group = groups[0]
-print(target_group)
+# print(target_group)
 
 print('Узнаём пользователей...')
 all_participants = []
 all_participants = client.get_participants(target_group)
 
+# Получите последнее сообщение из чата
+# last_message = client(messages.GetHistoryRequest(
+#     peer=target_group,
+#     limit=1
+# )).messages[0]
+#
+# # Выведите текст последнего сообщения в окно терминала
+# print('Последнее сообщение:', last_message.message)
 
 
 print('Сохраняем данные в файл...')
@@ -82,4 +91,4 @@ with open("members.csv", "w", encoding='UTF-8') as f:
         writer.writerow([username, name, target_group.title])
 print('Парсинг участников группы успешно выполнен.')
 
-# https://skillbox.ru/media/code/parsim-dannye-v-telegram-na-python-chast-1/
+
