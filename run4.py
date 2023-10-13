@@ -60,14 +60,33 @@ print('Узнаём пользователей...')
 all_participants = []
 all_participants = client.get_participants(target_group)
 
-# Получите последнее сообщение из чата
-last_message = client(messages.GetHistoryRequest(
-    peer=target_group,
-    limit=1
-)).messages[0]
 
-# Выведите текст последнего сообщения в окно терминала
-print('Последнее сообщение:', last_message.message)
+# здесь надо получить последнее сообщение из чата и вывести сообщение в окно терминала
+print('Узнаём последнее сообщение...')
+messages = client.get_messages(target_group, limit=1)
+last_message = messages[0].message
+print(last_message)
+
+print('Сохраняем данные в файл...')
+with open("members.csv", "w", encoding='UTF-8') as f:
+    writer = csv.writer(f, delimiter=",", lineterminator="\n")
+    for user in all_participants:
+        if user.username:
+            username = user.username
+        else:
+            username = ""
+        if user.first_name:
+            first_name = user.first_name
+        else:
+            first_name = ""
+        if user.last_name:
+            last_name = user.last_name
+        else:
+            last_name = ""
+        name = (first_name + ' ' + last_name).strip()
+        print(name)
+        writer.writerow([username, name, target_group.title])
+print('Парсинг участников группы успешно выполнен.')
 
 
 print('Сохраняем данные в файл...')

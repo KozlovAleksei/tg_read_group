@@ -20,6 +20,10 @@ api_hash = read_text_from_file('C:\\py386\secret\\001\\api_hash.txt')
 
 # channel_username = 'OlegTrade'
 channel_username = 'OlegTradeSupport'
+
+# channel_username = 'bcs_world_of_investments'
+
+
 # channel_username = 'Профит Есть. Premium'
 
 # Функция для чтения сообщений и записи в файл
