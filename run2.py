@@ -44,9 +44,9 @@ print(chats)
 for chat in chats:
    try:
        # 'ProfitGateClub' 'Atusoi'
-       # if chat.megagroup == True:
+       if chat.megagroup == True:
        # if chat.title == 'Atusoi':
-       if chat.title == 'Atusoi':
+       # if chat.title == 'Atusoi':
            groups.append(chat)
            break
    except:
