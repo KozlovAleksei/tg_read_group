@@ -1,8 +1,7 @@
 '''
-В телеграм-канале помимо обычного текста появляются кнопки, например кнопка "Смотреть идею".
-Обычный текст прилагаемая программа выводит, а текст кнопки - нет.
-Кнопки похожи на кнопки голосования, но ими не являются т.к. прилагаемый код их не видит.
-Надо распознавать кнопки в сообщениях, которые не являются кнопками голосования, и если они там сделаны и выводить их текст.
+В телеграм-канале помимо обычного текста появляются кнопки.
+В прилагаемом коде мы их определяем с момощью button_text через reply_markup.
+Необходимо нажимать кнопку с текстом "Смотреть идею", если она найдена.
 '''
 
 from telethon.sync import TelegramClient
@@ -75,7 +74,7 @@ print("Title:", target_group.title)
 print("Username:", target_group.username)
 
 while True:
-    time.sleep(2)
+    time.sleep(1)
     messages = client.get_messages(target_group, limit=1)  # для сообщений
 
     last_message = client.get_messages(target_group, limit=1)[0]  # для голосования
@@ -117,6 +116,27 @@ while True:
                     elif isinstance(button, types.KeyboardButtonUrl):
                         button_text = button.text
                         print("Найдена кнопка со ссылкой:", button_text)
+
+        time.sleep(1)
+
+        if reply_markup is not None and isinstance(reply_markup, types.ReplyInlineMarkup):
+            for row in reply_markup.rows:
+                for button in row.buttons:
+                    if isinstance(button, types.KeyboardButtonCallback):
+                        button_text = button.text
+                        if button_text == 'Смотреть идею':
+                            client.send_message(target_chat_id, button_text)
+                            # button.click()  # Нажимаем кнопку
+                            print("Кнопка 'Смотреть идею' найдена и нажата.")
+                        else:
+                            print("Найдена кнопка:", button_text)
+                    elif isinstance(button, types.KeyboardButtonUrl):
+                        button_text = button.text
+                        print("Найдена кнопка со ссылкой:", button_text)
+
+        breakpoint()
+
+
 
 
 
