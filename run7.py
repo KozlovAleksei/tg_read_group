@@ -66,13 +66,13 @@ except Exception:
     print(target_chat_id, ' надо закрепить на главной закладке Телеграм')
     breakpoint()
 
-print(target_group)
+# print(target_group)
 print("Group ID:", target_group.id)
 print("Title:", target_group.title)
 print("Username:", target_group.username)
 
 while True:
-    time.sleep(1)
+    time.sleep(2)
     messages = client.get_messages(target_group, limit=1)  # для сообщений
 
     last_message = client.get_messages(target_group, limit=1)[0]  # для голосования
@@ -95,15 +95,16 @@ while True:
             client(SendVoteRequest(target_group.id, last_message.id, options=options))
     else:
         print("Сообщение")
-        print(messages[0])
+        # print(messages[0])
 
-        last_message = datetime.now().strftime("%d.%m.%Y %H:%M:%S") + '\n'
-        last_message = last_message + messages[0].message
+        now = datetime.now().strftime("%d.%m.%Y %H:%M:%S") + '\n'
+        last_message = now + messages[0].message
+        print(now)
         print(last_message)
         with open(message_file, 'w', encoding='cp1251', errors='ignore') as file:
             file.write(last_message)
         # breakpoint()
         # if last_message !="Занято":
         #     client(SendMessageRequest(target_chat_id, "Занято"))
-
+    breakpoint()
 
